@@ -29,4 +29,12 @@
     <string name="main_menu">Main Menu?</string>
     <string name="revealedWordLabel">The word was:</string>
     <string name="defaultWord">Default</string>
+    <string name="settingsTitle">Settings</string>
+    <string name="game_mode">Game Mode</string>
+    <string name="normal_setting">Normal Hangman</string>
+    <string name="evil_setting">Evil Hangman</string>
+    <string name="difficultyTitle">Difficulty</string>
+    <string name="easyDifficulty">Easy</string>
+    <string name="mediumDifficulty">Medium</string>
+    <string name="hardDifficulty">Hard</string>
 </resources>
