@@ -16,4 +16,12 @@
     <string name="default_attempts">Attempts Remaining: </string>
     <string name="default_characters">a b c</string>
     <string name="default_attempt_number">6</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia mi volutpat, dapibus lacus quis, ultricies velit.</string>
+    <string name="about_the_game">About the Game</string>
+    <string name="about_the_authors">About the Authors</string>
+    <string name="available_contacts">Available Contacts</string>
+    <string name="aboutTitle">About</string>
+    <string name="helpTitle">Help</string>
+    <string name="how_to_play">How to Play</string>
+    <string name="settings_info">Settings Info</string>
 </resources>
