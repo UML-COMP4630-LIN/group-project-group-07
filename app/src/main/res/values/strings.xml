@@ -9,4 +9,11 @@
     <string name="about">About</string>
     <string name="help">Help</string>
     <string name="title"><u>Eviler Hangman</u></string>
+    <string name="default_blank">_ _ _ _ _ _ _</string>
+    <string name="default_guessed">Guessed: </string>
+    <string name="submit_hint">Enter a letter</string>
+    <string name="button_text">Submit Guess</string>
+    <string name="default_attempts">Attempts Remaining: </string>
+    <string name="default_characters">a b c</string>
+    <string name="default_attempt_number">6</string>
 </resources>
