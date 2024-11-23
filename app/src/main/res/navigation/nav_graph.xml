@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainMenuFragment">
+
+    <fragment
+        android:id="@+id/mainMenuFragment"
+        android:name="com.example.evilerhangman.MainMenuFragment"
+        android:label="fragment_main_menu"
+        tools:layout="@layout/fragment_main_menu" >
+        <action
+            android:id="@+id/action_mainMenuFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_gameScreenFragment"
+            app:destination="@id/gameScreenFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.evilerhangman.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/gameScreenFragment"
+        android:name="com.example.evilerhangman.GameScreenFragment"
+        android:label="fragment_game_screen"
+        tools:layout="@layout/fragment_game_screen" >
+        <action
+            android:id="@+id/action_gameScreenFragment_to_resultScreenFragment"
+            app:destination="@id/resultScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.example.evilerhangman.HelpFragment"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" />
+    <fragment
+        android:id="@+id/resultScreenFragment"
+        android:name="com.example.evilerhangman.ResultScreenFragment"
+        android:label="fragment_result_screen"
+        tools:layout="@layout/fragment_result_screen" >
+        <action
+            android:id="@+id/action_resultScreenFragment_to_gameScreenFragment"
+            app:destination="@id/gameScreenFragment" />
+        <action
+            android:id="@+id/action_resultScreenFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.evilerhangman.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
