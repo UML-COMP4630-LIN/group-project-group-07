@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Eviler Hangman"
+rootProject.name = "group-project-group-07"
 include(":app")
  

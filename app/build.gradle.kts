@@ -32,6 +32,11 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+    implementation(libs.navigation.dynamic.features.fragment)
+    implementation(libs.navigation.testing)
+    implementation("androidx.navigation:navigation-compose:2.8.3")
 
     implementation(libs.appcompat)
     implementation(libs.material)
