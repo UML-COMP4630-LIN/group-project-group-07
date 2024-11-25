@@ -33,7 +33,7 @@ public class GameScreenFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentGameScreenBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-        GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(7, 5);
+        GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(getActivity().getApplication(), 7, 5);
         mViewModel = new ViewModelProvider(this, viewModelFactory).get(GameScreenViewModel.class);
         mViewModel.game.revealed_word.observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

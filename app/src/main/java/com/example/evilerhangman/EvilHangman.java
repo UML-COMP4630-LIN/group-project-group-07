@@ -1,10 +1,13 @@
 package com.example.evilerhangman;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,12 +20,12 @@ public class EvilHangman {
     public MutableLiveData<ArrayList<Character>> guessed_letters;
     ArrayList<String> words;
 
-    public EvilHangman(int word_length, int lives) throws IOException {
+    public EvilHangman(InputStream stream, int word_length, int lives) throws IOException {
         lives_left = new MutableLiveData<>(lives);
         this.word_length = word_length;
         guessed_letters = new MutableLiveData<>(new ArrayList<>());
-        BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("words_alpha.txt"), "UTF-8")); // fails to read file
-        ArrayList<String> words = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+        words = new ArrayList<>();
         String line = br.readLine();
         while(line != null) {
             if(line.length() == word_length) {
@@ -31,11 +34,17 @@ public class EvilHangman {
             line = br.readLine();
         }
         br.close();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < word_length; i++) {
+            sb.append('_');
+        }
+        this.revealed_word = new MutableLiveData<>(sb.toString());
     }
     public boolean guess(Character letter) {
         if(guessed_letters.getValue().contains(letter)) { // should be checking for nulls
             return false;
         }
+        guessed_letters.getValue().add(letter);
         HashMap<String, ArrayList<String>> word_families = new HashMap<String, ArrayList<String>>();
         for(String word: words) {
             StringBuilder sb = new StringBuilder();
@@ -46,10 +55,14 @@ public class EvilHangman {
                 int index = word.indexOf(guessed_letter);
                 while(index >= 0) {
                     sb.setCharAt(index, guessed_letter);
-                    index = word.indexOf(letter, index + 1);
+                    index = word.indexOf(guessed_letter, index + 1);
                 }
             }
+            if(!word_families.containsKey(sb.toString())) {
+                word_families.put(sb.toString(), new ArrayList<>());
+            }
             word_families.get(sb.toString()).add(word);
+            Log.d("HANGMAN", word + ": " + sb.toString());
         }
         String biggest_family = "";
         int biggest_family_size = -1;
@@ -65,6 +78,8 @@ public class EvilHangman {
             }
         }
         revealed_word.setValue(biggest_family);
+        words = word_families.get(biggest_family);
+        Log.d("HANGMAN", "New family: " + biggest_family + " (" + biggest_family_size + ")");
         return lives_left.getValue() == 0 || biggest_family_size == 1;
     }
     public boolean hasWon() {
