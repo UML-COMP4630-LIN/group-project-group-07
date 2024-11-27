@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,9 @@ public class GameScreenFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 binding.remainingAttemptsNumber.setText(integer.toString());
+                if(integer <= 0) {
+                    Navigation.findNavController(view).navigate(R.id.action_gameScreenFragment_to_resultScreenFragment);
+                }
             }
         });
         mViewModel.game.guessed_letters.observe(getViewLifecycleOwner(), new Observer<ArrayList<Character>>() {
@@ -52,7 +56,10 @@ public class GameScreenFragment extends Fragment {
             public void onChanged(ArrayList<Character> characters) {
                 StringBuilder sb = new StringBuilder();
                 for(Character ch: characters) {
-                    sb.append(ch).append(", ");
+                    sb = sb.append(ch).append(", ");
+                }
+                if(sb.length() > 0) {
+                    sb.setLength(sb.length() - 2);
                 }
                 binding.guessedLetters.setText(sb.toString());
             }

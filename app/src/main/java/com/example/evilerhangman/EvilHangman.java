@@ -44,7 +44,9 @@ public class EvilHangman {
         if(guessed_letters.getValue().contains(letter)) { // should be checking for nulls
             return false;
         }
-        guessed_letters.getValue().add(letter);
+        ArrayList<Character> new_guessed_letters = guessed_letters.getValue();
+        new_guessed_letters.add(letter);
+        guessed_letters.setValue(new_guessed_letters);
         HashMap<String, ArrayList<String>> word_families = new HashMap<String, ArrayList<String>>();
         for(String word: words) {
             StringBuilder sb = new StringBuilder();
@@ -62,7 +64,7 @@ public class EvilHangman {
                 word_families.put(sb.toString(), new ArrayList<>());
             }
             word_families.get(sb.toString()).add(word);
-            Log.d("HANGMAN", word + ": " + sb.toString());
+//            Log.d("HANGMAN", word + ": " + sb.toString());
         }
         String biggest_family = "";
         int biggest_family_size = -1;
@@ -79,7 +81,7 @@ public class EvilHangman {
         }
         revealed_word.setValue(biggest_family);
         words = word_families.get(biggest_family);
-        Log.d("HANGMAN", "New family: " + biggest_family + " (" + biggest_family_size + ")");
+//        Log.d("HANGMAN", "New family: " + biggest_family + " (" + biggest_family_size + ")");
         return lives_left.getValue() == 0 || biggest_family_size == 1;
     }
     public boolean hasWon() {
