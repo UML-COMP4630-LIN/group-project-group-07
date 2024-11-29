@@ -14,8 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class ResultScreenFragment extends Fragment {
+import com.example.evilerhangman.databinding.FragmentGameScreenBinding;
+import com.example.evilerhangman.databinding.FragmentResultScreenBinding;
 
+public class ResultScreenFragment extends Fragment {
+    private FragmentResultScreenBinding binding;
     private ResultScreenViewModel mViewModel;
 
     public static ResultScreenFragment newInstance() {
@@ -25,10 +28,21 @@ public class ResultScreenFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_result_screen, container, false);
+        binding = FragmentResultScreenBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-        Button playAgainButton = view.findViewById(R.id.playAgainButton);
-        Button mainMenuButton = view.findViewById(R.id.mainMenuButton);
+        Button playAgainButton = binding.playAgainButton;
+        Button mainMenuButton = binding.mainMenuButton;
+
+        boolean won = ResultScreenFragmentArgs.fromBundle(requireArguments()).getWon();
+        String word = ResultScreenFragmentArgs.fromBundle(requireArguments()).getWord();
+
+        if(won) {
+            binding.resultMessage.setText(R.string.you_won);
+        } else {
+            binding.resultMessage.setText(R.string.you_lost);
+        }
+        binding.revealedWord.setText(word);
 
         playAgainButton.setOnClickListener(new View.OnClickListener() {
             // TODO: Implement play again functionality

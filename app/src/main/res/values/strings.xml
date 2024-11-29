@@ -37,4 +37,6 @@
     <string name="easyDifficulty">Easy</string>
     <string name="mediumDifficulty">Medium</string>
     <string name="hardDifficulty">Hard</string>
+    <string name="you_won">You won!</string>
+    <string name="you_lost">You lost!</string>
 </resources>
