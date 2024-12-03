@@ -18,6 +18,7 @@ public class EvilHangman {
     public MutableLiveData<ArrayList<Character>> guessedLetters;
     ArrayList<String> words;
     public String word;
+    public int[] imageArray;
 
     public EvilHangman(InputStream stream, int wordLength, int lives) throws IOException {
         livesLeft = new MutableLiveData<>(lives);
@@ -38,6 +39,14 @@ public class EvilHangman {
             sb.append('_');
         }
         this.revealedWord = new MutableLiveData<>(sb.toString());
+        imageArray = new int[]{
+                R.drawable.right_leg,
+                R.drawable.left_leg,
+                R.drawable.left_arm,
+                R.drawable.right_arm,
+                R.drawable.torso,
+                R.drawable.head
+        };
     }
     public boolean guess(Character letter) {
         if(guessedLetters.getValue().contains(letter)) { // should be checking for nulls
