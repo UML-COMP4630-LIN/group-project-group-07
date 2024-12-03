@@ -47,17 +47,18 @@
         android:id="@+id/guessedLetters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/default_characters"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/guessedLabel"
-        app:layout_constraintTop_toTopOf="@+id/guessedLabel" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guessedLabel" />
 
     <EditText
         android:id="@+id/guessInput"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:hint="@string/submit_hint"
         android:inputType="text"
@@ -66,7 +67,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guessedLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/guessedLetters" />
 
     <Button
         android:id="@+id/submitButton"
