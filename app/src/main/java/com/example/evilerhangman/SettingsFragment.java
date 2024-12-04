@@ -1,3 +1,8 @@
+/*
+SettingsFragment.java
+This file contains the code for the settings screen Fragment.
+*/
+
 package com.example.evilerhangman;
 
 import androidx.lifecycle.ViewModelProvider;

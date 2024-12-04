@@ -1,3 +1,8 @@
+/*
+AboutFragment.java
+This file contains the code for the about screen Fragment.
+*/
+
 package com.example.evilerhangman;
 
 import android.os.Bundle;

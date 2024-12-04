@@ -1,4 +1,11 @@
+/*
+EvilHangman.java
+This file contains the code for the EvilHangman class, which handles the business logic of the game. An instance of it is created in the GameScreenViewModel by the GameScreenViewModelFactory.
+*/
+
 package com.example.evilerhangman;
+
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -18,10 +25,28 @@ public class EvilHangman {
     public MutableLiveData<ArrayList<Character>> guessedLetters;
     ArrayList<String> words;
     public String word;
+    public enum Mode {
+        EVIL,
+        NORMAL,
+        GOOD
+    }
+    Mode mode;
 
-    public EvilHangman(InputStream stream, int wordLength, int lives) throws IOException {
+    /*
+    EvilHangman constructor
+    Parameters:
+    - stream: Contains the list of words to be used (all of them, not just ones of a particular length).
+    - wordLength: The word length to be used.
+    - lives: The amount of lives the user will have.
+    - mode: EVIL, NORMAL, or GOOD. Changes how the next word family is determined: EVIL picks the smallest one, GOOD picks the largest one, and NORMAL picks a word at the beginning and chooses whatever family has that word in it.
+    */
+    public EvilHangman(InputStream stream, int wordLength, int lives, Mode mode) throws IOException {
         livesLeft = new MutableLiveData<>(lives);
         this.wordLength = wordLength;
+        this.mode = mode;
+        if(this.mode == Mode.NORMAL) {
+            word = words.get(new Random().nextInt(words.size()));
+        }
         guessedLetters = new MutableLiveData<>(new ArrayList<>());
         BufferedReader br = new BufferedReader(new InputStreamReader(stream));
         words = new ArrayList<>();
@@ -39,6 +64,14 @@ public class EvilHangman {
         }
         this.revealedWord = new MutableLiveData<>(sb.toString());
     }
+    /*
+    guess
+    Contains the logic to guess a letter in the word.
+    Parameters:
+    - letter: The letter the user is guessing.
+    Returns:
+    A boolean saying whether or not the game is over (but not whether they have won or lost, just if either of them are true).
+    */
     public boolean guess(Character letter) {
         if(guessedLetters.getValue().contains(letter)) { // should be checking for nulls
             return false;
@@ -63,27 +96,50 @@ public class EvilHangman {
                 wordFamilies.put(sb.toString(), new ArrayList<>());
             }
             wordFamilies.get(sb.toString()).add(word);
-//            Log.d("HANGMAN", word + ": " + sb.toString());
+            Log.d("HANGMAN", word + ": " + sb.toString());
         }
-        String biggestFamily = "";
+        String newFamily = "";
         int biggestFamilySize = -1;
+        int smallestFamilySize = words.size();
         for(Map.Entry<String, ArrayList<String>> entry: wordFamilies.entrySet()) {
-            if(entry.getValue().size() > biggestFamilySize) {
-                biggestFamily = entry.getKey();
-                biggestFamilySize = entry.getValue().size();
+            switch(mode) {
+                case EVIL:
+                    if(entry.getValue().size() > biggestFamilySize) {
+                        newFamily = entry.getKey();
+                        biggestFamilySize = entry.getValue().size();
+                    }
+                    break;
+                case GOOD:
+                    if(entry.getValue().size() < smallestFamilySize) {
+                        newFamily = entry.getKey();
+                        smallestFamilySize = entry.getValue().size();
+                    }
+                    break;
+                case NORMAL:
+                    if(entry.getValue().contains(this.word)) {
+                        newFamily = entry.getKey();
+                    }
             }
         }
-        if(biggestFamily.indexOf(letter) == -1) {
+        if(newFamily.indexOf(letter) == -1) {
             if(livesLeft != null) {
                 livesLeft.setValue(livesLeft.getValue() - 1);
             }
         }
-        revealedWord.setValue(biggestFamily);
-        words = wordFamilies.get(biggestFamily);
-//        Log.d("HANGMAN", "New family: " + biggestFamily + " (" + biggestFamilySize + ")");
+        revealedWord.setValue(newFamily);
+        words = wordFamilies.get(newFamily);
+        Log.d("HANGMAN", "New family: " + newFamily + " (" + biggestFamilySize + ")");
         word = words.get(new Random().nextInt(words.size()));
         return livesLeft.getValue() == 0 || revealedWord.getValue().indexOf('_') == -1;
     }
+    /*
+    hasWon
+    Determines whether or not the user has won. Should only be called when the game is over (i.e. when guess returns true).
+    Parameters:
+    None
+    Returns:
+    Whether the user has won (true) or lost (false).
+    */
     public boolean hasWon() {
         if(livesLeft.getValue() == 0) {
             return false;

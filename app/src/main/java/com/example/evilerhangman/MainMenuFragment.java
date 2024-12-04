@@ -1,3 +1,8 @@
+/*
+MainMenuFragment.java
+This file contains the code for the main menu Fragment. The menu buttons are set up and linked to their navigation destinations.
+*/
+
 package com.example.evilerhangman;
 
 import androidx.lifecycle.ViewModelProvider;

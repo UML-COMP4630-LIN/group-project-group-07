@@ -1,3 +1,8 @@
+/*
+GameScreenFragment.java
+This file contains the code for the game screen Fragment and handles the UI logic relating to it.
+*/
+
 package com.example.evilerhangman;
 
 import androidx.lifecycle.Observer;
@@ -14,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.evilerhangman.databinding.FragmentGameScreenBinding;
 

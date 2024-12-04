@@ -1,3 +1,8 @@
+/*
+MainActivity.java
+This file contains the code for the main Activity.
+*/
+
 package com.example.evilerhangman;
 
 import android.os.Bundle;
