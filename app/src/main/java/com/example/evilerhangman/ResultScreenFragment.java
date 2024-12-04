@@ -36,29 +36,26 @@ public class ResultScreenFragment extends Fragment {
         binding = FragmentResultScreenBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        Button playAgainButton = binding.playAgainButton;
-        Button mainMenuButton = binding.mainMenuButton;
-
         boolean won = ResultScreenFragmentArgs.fromBundle(requireArguments()).getWon();
         String word = ResultScreenFragmentArgs.fromBundle(requireArguments()).getWord();
 
         if(won) {
             binding.resultMessage.setText(R.string.you_won);
+            binding.resultImage.setImageResource(R.drawable.you_win);
         } else {
             binding.resultMessage.setText(R.string.you_lost);
+            binding.resultImage.setImageResource(R.drawable.you_lose);
         }
         binding.revealedWord.setText(word);
 
-        playAgainButton.setOnClickListener(new View.OnClickListener() {
-            // TODO: Implement play again functionality
+        binding.playAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_resultScreenFragment_to_gameScreenFragment);
             }
         });
 
-        mainMenuButton.setOnClickListener(new View.OnClickListener() {
-            // TODO: Implement main menu functionality
+        binding.mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_resultScreenFragment_to_mainMenuFragment);

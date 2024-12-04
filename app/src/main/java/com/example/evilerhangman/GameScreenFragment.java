@@ -38,7 +38,7 @@ public class GameScreenFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentGameScreenBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-        GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(getActivity().getApplication(), 7, 5);
+        GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(getActivity().getApplication(), 7, 6);
         mViewModel = new ViewModelProvider(this, viewModelFactory).get(GameScreenViewModel.class);
         mViewModel.game.revealedWord.observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -50,6 +50,9 @@ public class GameScreenFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 binding.remainingAttemptsNumber.setText(integer.toString());
+                if(integer != 6) {
+                    binding.gallowsImage.setImageResource(mViewModel.game.imageArray[integer]);
+                }
             }
         });
         mViewModel.game.guessedLetters.observe(getViewLifecycleOwner(), new Observer<ArrayList<Character>>() {
@@ -65,17 +68,20 @@ public class GameScreenFragment extends Fragment {
                 binding.guessedLetters.setText(sb.toString());
             }
         });
-        Button submitButton = binding.submitButton;
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        binding.submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(binding.guessInput.getText().toString().length() != 1) {
+                    return;
+                }
                 boolean gameOver = mViewModel.game.guess(binding.guessInput.getText().toString().charAt(0));
                 if(gameOver) {
                     boolean won = mViewModel.game.hasWon();
                     GameScreenFragmentDirections.ActionGameScreenFragmentToResultScreenFragment action = GameScreenFragmentDirections.actionGameScreenFragmentToResultScreenFragment(won, mViewModel.game.word);
                     Navigation.findNavController(view).navigate(action);
                 }
+                binding.guessInput.setText("");
             }
         });
 

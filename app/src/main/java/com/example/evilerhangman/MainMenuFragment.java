@@ -19,8 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.evilerhangman.databinding.FragmentMainMenuBinding;
+
 public class MainMenuFragment extends Fragment {
 
+    private FragmentMainMenuBinding binding;
     private MainMenuViewModel mViewModel;
 
     public static MainMenuFragment newInstance() {
@@ -31,41 +34,36 @@ public class MainMenuFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_menu, container, false);
-        Button singlePlayerButton = view.findViewById(R.id.btnSingleplayer);
-        Button multiplayerButton = view.findViewById(R.id.btnMultiplayer);
-        Button settingsButton = view.findViewById(R.id.btnSettings);
-        Button aboutButton = view.findViewById(R.id.btnAbout);
-        Button helpButton = view.findViewById(R.id.btnHelp);
 
-        singlePlayerButton.setOnClickListener(new View.OnClickListener() {
+        binding.btnSingleplayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_gameScreenFragment);
             }
         });
 
-        multiplayerButton.setOnClickListener(new View.OnClickListener() {
+        binding.btnMultiplayer.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                // TODO: Implement multiplayer functionality
            }
         });
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        binding.btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_settingsFragment);
             }
         });
 
-        aboutButton.setOnClickListener(new View.OnClickListener() {
+        binding.btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_aboutFragment);
             }
         });
 
-        helpButton.setOnClickListener(new View.OnClickListener() {
+        binding.btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_helpFragment);

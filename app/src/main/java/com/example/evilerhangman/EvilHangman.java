@@ -1,8 +1,3 @@
-/*
-EvilHangman.java
-This file contains the code for the EvilHangman class, which handles the business logic of the game. An instance of it is created in the GameScreenViewModel by the GameScreenViewModelFactory.
-*/
-
 package com.example.evilerhangman;
 
 import android.util.Log;
@@ -31,6 +26,7 @@ public class EvilHangman {
         GOOD
     }
     Mode mode;
+    public int[] imageArray;
 
     /*
     EvilHangman constructor
@@ -63,6 +59,14 @@ public class EvilHangman {
             sb.append('_');
         }
         this.revealedWord = new MutableLiveData<>(sb.toString());
+        imageArray = new int[]{
+                R.drawable.right_leg,
+                R.drawable.left_leg,
+                R.drawable.left_arm,
+                R.drawable.right_arm,
+                R.drawable.torso,
+                R.drawable.head
+        };
     }
     /*
     guess
