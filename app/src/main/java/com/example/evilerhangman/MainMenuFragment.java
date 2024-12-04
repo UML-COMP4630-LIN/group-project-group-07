@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.evilerhangman.databinding.FragmentMainMenuBinding;
+import com.example.evilerhangman.databinding.FragmentResultScreenBinding;
 
 public class MainMenuFragment extends Fragment {
 
@@ -33,7 +34,8 @@ public class MainMenuFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main_menu, container, false);
+        binding = FragmentMainMenuBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
         binding.btnSingleplayer.setOnClickListener(new View.OnClickListener() {
             @Override
