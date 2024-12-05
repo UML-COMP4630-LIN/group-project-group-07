@@ -5,8 +5,6 @@ This file contains the code for the game screen view model, which handles the lo
 
 package com.example.evilerhangman;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
 import android.app.Application;
 import android.util.Log;
 
