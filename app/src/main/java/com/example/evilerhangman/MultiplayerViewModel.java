@@ -10,9 +10,9 @@ import androidx.lifecycle.ViewModel;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class GameScreenViewModel extends AndroidViewModel {
+public class MultiplayerViewModel extends AndroidViewModel {
     public EvilHangman game;
-    public GameScreenViewModel(@NonNull Application application, int word_length, int lives) {
+    public MultiplayerViewModel(@NonNull Application application, int word_length, int lives) {
         super(application);
         try {
             InputStream is = getApplication().getAssets().open("words_alpha.txt");
