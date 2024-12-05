@@ -25,11 +25,11 @@ public class GameScreenViewModel extends AndroidViewModel {
     - wordLength: The length of the word the user will have to guess.
     - lives: The amount of lives the user will have.
     */
-    public GameScreenViewModel(@NonNull Application application, int wordLength, int lives, Mode mode) {
+    public GameScreenViewModel(@NonNull Application application, int wordLength, int lives) {
         super(application);
         try {
             InputStream is = getApplication().getAssets().open("words_alpha.txt");
-            game = new EvilHangman(is, wordLength, lives, mode);
+            game = new EvilHangman(is, wordLength, lives);
         } catch(IOException e) {
             Log.d("HANGMAN", e.getMessage());
         }

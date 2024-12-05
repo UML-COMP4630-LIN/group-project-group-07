@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 public class GameScreenViewModelFactory implements ViewModelProvider.Factory {
     private int word_length, lives;
     private Application application;
-    private Mode mode;
 
     /*
     GameScreenViewModelFactory constructor
@@ -28,7 +27,6 @@ public class GameScreenViewModelFactory implements ViewModelProvider.Factory {
         this.application = application;
         this.word_length = word_length;
         this.lives = lives;
-        this.mode = Mode.EVIL;
     }
     /*
     create
@@ -43,7 +41,7 @@ public class GameScreenViewModelFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if(modelClass == GameScreenViewModel.class) {
             Log.d("HANGMAN", "CREATING NEW GAMESCREENVIEWMODEL");
-            return (T)new GameScreenViewModel(this.application, this.word_length, this.lives, this.mode);
+            return (T)new GameScreenViewModel(this.application, this.word_length, this.lives);
         }
         return null;
     }

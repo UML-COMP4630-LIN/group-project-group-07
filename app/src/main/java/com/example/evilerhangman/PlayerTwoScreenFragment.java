@@ -23,6 +23,8 @@ public class PlayerTwoScreenFragment extends Fragment {
     private FragmentPlayerTwoScreenBinding binding;
 
     private MultiplayerViewModel mViewModel;
+
+    private SettingsViewModel settingsViewModel;
     private int[] imageArray = new int[]{
         R.drawable.right_leg,
         R.drawable.left_leg,
@@ -49,6 +51,8 @@ public class PlayerTwoScreenFragment extends Fragment {
         MultiplayerViewModelFactory viewModelFactory = new MultiplayerViewModelFactory(getActivity().getApplication(), 7, 6);
         mViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MultiplayerViewModel.class);
 
+        settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mViewModel.game.words);
         binding.p2wordChanger.setAdapter(adapter);
 
@@ -70,10 +74,11 @@ public class PlayerTwoScreenFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mViewModel.game.word = binding.p2wordChanger.getSelectedItem().toString();
-                boolean gameOver = mViewModel.game.guess(letter);
+                boolean gameOver = mViewModel.game.guess(letter, settingsViewModel.difficulty);
                 if(gameOver) {
                     boolean won = mViewModel.game.hasWon();
                     PlayerTwoScreenFragmentDirections.ActionPlayerTwoScreenFragmentToResultScreenFragment action = PlayerTwoScreenFragmentDirections.actionPlayerTwoScreenFragmentToResultScreenFragment(won, mViewModel.game.word);
+                    mViewModel.reset(7, 6);
                     Navigation.findNavController(view).navigate(action);
                 } else {
                     Navigation.findNavController(view).navigate(R.id.action_playerTwoScreenFragment_to_playerOneScreenFragment);
