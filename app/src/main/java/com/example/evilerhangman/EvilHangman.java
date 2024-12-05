@@ -14,6 +14,7 @@ import java.util.Random;
 public class EvilHangman {
     public MutableLiveData<Integer> livesLeft;
     private int wordLength;
+    private double partialLives = 0;
     public MutableLiveData<String> revealedWord;
     public MutableLiveData<ArrayList<Character>> guessedLetters;
     ArrayList<String> words;
@@ -48,7 +49,7 @@ public class EvilHangman {
                 R.drawable.head
         };
     }
-    public boolean guess(Character letter) {
+    public boolean guess(Character letter, Double difficulty) {
         if(guessedLetters.getValue().contains(letter)) { // should be checking for nulls
             return false;
         }
@@ -84,7 +85,13 @@ public class EvilHangman {
         }
         if(biggestFamily.indexOf(letter) == -1) {
             if(livesLeft != null) {
-                livesLeft.setValue(livesLeft.getValue() - 1);
+                partialLives += difficulty;
+
+                if(partialLives >= 1.0) {
+                    int livesToLose = (int) partialLives;
+                    partialLives -= livesToLose;
+                    livesLeft.setValue(livesLeft.getValue() - livesToLose);
+                }
             }
         }
         revealedWord.setValue(biggestFamily);
