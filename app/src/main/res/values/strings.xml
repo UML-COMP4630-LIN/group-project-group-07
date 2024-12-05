@@ -39,4 +39,5 @@
     <string name="hardDifficulty">Hard</string>
     <string name="you_won">You won!</string>
     <string name="you_lost">You lost!</string>
+    <string name="button_change_text">Submit Change</string>
 </resources>

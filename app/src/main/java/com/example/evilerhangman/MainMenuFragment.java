@@ -42,7 +42,7 @@ public class MainMenuFragment extends Fragment {
         binding.btnMultiplayer.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               // TODO: Implement multiplayer functionality
+               Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_playerOneScreenFragment);
            }
         });
 
