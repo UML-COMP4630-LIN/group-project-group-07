@@ -23,7 +23,7 @@ public class MultiplayerViewModel extends AndroidViewModel {
     private void initializeGame() {
         try {
             InputStream is = getApplication().getAssets().open("words_alpha.txt");
-            game = new EvilHangman(is, word_length, lives);
+            game = new EvilHangman(is, word_length, lives, Mode.NORMAL);
         } catch(IOException e) {
             Log.d("HANGMAN", e.getMessage());
         }

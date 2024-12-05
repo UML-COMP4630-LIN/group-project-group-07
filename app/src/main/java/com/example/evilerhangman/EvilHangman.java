@@ -1,5 +1,7 @@
 package com.example.evilerhangman;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import java.io.BufferedReader;
@@ -17,13 +19,14 @@ public class EvilHangman {
     private double partialLives = 0;
     public MutableLiveData<String> revealedWord;
     public MutableLiveData<ArrayList<Character>> guessedLetters;
-    ArrayList<String> words;
+    public ArrayList<String> words;
     public String word;
-    public int[] imageArray;
+    Mode mode;
 
-    public EvilHangman(InputStream stream, int wordLength, int lives) throws IOException {
+    public EvilHangman(InputStream stream, int wordLength, int lives, Mode mode) throws IOException {
         livesLeft = new MutableLiveData<>(lives);
         this.wordLength = wordLength;
+        this.mode = mode;
         guessedLetters = new MutableLiveData<>(new ArrayList<>());
         BufferedReader br = new BufferedReader(new InputStreamReader(stream));
         words = new ArrayList<>();
@@ -39,15 +42,10 @@ public class EvilHangman {
         for (int i = 0; i < wordLength; i++) {
             sb.append('_');
         }
+        if(this.mode == Mode.NORMAL) {
+            word = words.get(new Random().nextInt(words.size()));
+        }
         this.revealedWord = new MutableLiveData<>(sb.toString());
-        imageArray = new int[]{
-                R.drawable.right_leg,
-                R.drawable.left_leg,
-                R.drawable.left_arm,
-                R.drawable.right_arm,
-                R.drawable.torso,
-                R.drawable.head
-        };
     }
     public boolean guess(Character letter, Double difficulty) {
         if(guessedLetters.getValue().contains(letter)) { // should be checking for nulls
@@ -73,17 +71,33 @@ public class EvilHangman {
                 wordFamilies.put(sb.toString(), new ArrayList<>());
             }
             wordFamilies.get(sb.toString()).add(word);
-//            Log.d("HANGMAN", word + ": " + sb.toString());
+            Log.d("HANGMAN", word + ": " + sb.toString());
         }
-        String biggestFamily = "";
+        String newFamily = "";
         int biggestFamilySize = -1;
+        int smallestFamilySize = words.size();
         for(Map.Entry<String, ArrayList<String>> entry: wordFamilies.entrySet()) {
-            if(entry.getValue().size() > biggestFamilySize) {
-                biggestFamily = entry.getKey();
-                biggestFamilySize = entry.getValue().size();
+            switch(mode) {
+                case EVIL:
+                    if (entry.getValue().size() > biggestFamilySize) {
+                        newFamily = entry.getKey();
+                        biggestFamilySize = entry.getValue().size();
+                    }
+                    break;
+                case GOOD:
+                    if (entry.getValue().size() < smallestFamilySize) {
+                        newFamily = entry.getKey();
+                        smallestFamilySize = entry.getValue().size();
+                    }
+                    break;
+                case NORMAL:
+                    if (entry.getValue().contains(this.word)) {
+                        newFamily = entry.getKey();
+                    }
+                    break;
             }
         }
-        if(biggestFamily.indexOf(letter) == -1) {
+        if(newFamily.indexOf(letter) == -1) {
             if(livesLeft != null) {
                 partialLives += difficulty;
 
@@ -94,9 +108,9 @@ public class EvilHangman {
                 }
             }
         }
-        revealedWord.setValue(biggestFamily);
-        words = wordFamilies.get(biggestFamily);
-//        Log.d("HANGMAN", "New family: " + biggestFamily + " (" + biggestFamilySize + ")");
+        revealedWord.setValue(newFamily);
+        words = wordFamilies.get(newFamily);
+        Log.d("HANGMAN", "New family: " + newFamily + " (" + biggestFamilySize + ")");
         word = words.get(new Random().nextInt(words.size()));
         return livesLeft.getValue() == 0 || revealedWord.getValue().indexOf('_') == -1;
     }

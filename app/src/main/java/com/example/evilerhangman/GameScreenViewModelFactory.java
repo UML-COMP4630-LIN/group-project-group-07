@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 public class GameScreenViewModelFactory implements ViewModelProvider.Factory {
     private int word_length, lives;
     private Application application;
+    private Mode mode;
 
     /*
     GameScreenViewModelFactory constructor
@@ -23,10 +24,11 @@ public class GameScreenViewModelFactory implements ViewModelProvider.Factory {
     - wordLength: The length of the word the user will have to guess.
     - lives: The amount of lives the user will have.
     */
-    GameScreenViewModelFactory(@NonNull Application application, int word_length, int lives) {
+    GameScreenViewModelFactory(@NonNull Application application, int word_length, int lives, Mode mode) {
         this.application = application;
         this.word_length = word_length;
         this.lives = lives;
+        this.mode = mode;
     }
     /*
     create
@@ -41,7 +43,7 @@ public class GameScreenViewModelFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if(modelClass == GameScreenViewModel.class) {
             Log.d("HANGMAN", "CREATING NEW GAMESCREENVIEWMODEL");
-            return (T)new GameScreenViewModel(this.application, this.word_length, this.lives);
+            return (T)new GameScreenViewModel(this.application, this.word_length, this.lives, this.mode);
         }
         return null;
     }

@@ -50,9 +50,9 @@ public class GameScreenFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentGameScreenBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-        GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(getActivity().getApplication(), 7, 6);
-        mViewModel = new ViewModelProvider(this, viewModelFactory).get(GameScreenViewModel.class);
         settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+        GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(getActivity().getApplication(), 7, 6, settingsViewModel.mode);
+        mViewModel = new ViewModelProvider(this, viewModelFactory).get(GameScreenViewModel.class);
         mViewModel.game.revealedWord.observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {

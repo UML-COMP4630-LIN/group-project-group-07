@@ -21,6 +21,8 @@ import android.widget.RadioGroup;
 
 import com.example.evilerhangman.databinding.FragmentSettingsBinding;
 
+import java.util.Objects;
+
 public class SettingsFragment extends Fragment {
 
     private SettingsViewModel mViewModel;
@@ -38,6 +40,13 @@ public class SettingsFragment extends Fragment {
         // Change this line to use the activity scope
         mViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
+        // Set the correct radio button based on the current mode value
+        if (mViewModel.mode == Mode.GOOD) {
+            binding.normalMode.setChecked(true);
+        } else if (mViewModel.mode == Mode.EVIL) {
+            binding.evilMode.setChecked(true);
+        }
+
         // Set the correct radio button based on the current difficulty value
         if (mViewModel.difficulty == 0.5) {
             binding.easyDifficulty.setChecked(true);
@@ -46,6 +55,14 @@ public class SettingsFragment extends Fragment {
         } else if (mViewModel.difficulty == 2.0) {
             binding.hardDifficulty.setChecked(true);
         }
+
+        binding.gameModeGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == binding.normalMode.getId()) {
+                mViewModel.mode = Mode.GOOD;
+            } else if (checkedId == binding.evilMode.getId()) {
+                mViewModel.mode = Mode.EVIL;
+            }
+        });
 
         binding.difficultyGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if(checkedId == binding.easyDifficulty.getId()) {
