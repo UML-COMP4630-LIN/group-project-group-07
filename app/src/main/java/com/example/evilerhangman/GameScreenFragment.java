@@ -30,6 +30,7 @@ import java.util.ArrayList;
 public class GameScreenFragment extends Fragment {
 
     private GameScreenViewModel mViewModel;
+    private SettingsViewModel settingsViewModel;
     private FragmentGameScreenBinding binding;
     public static GameScreenFragment newInstance() {
         return new GameScreenFragment();
@@ -51,6 +52,7 @@ public class GameScreenFragment extends Fragment {
         View view = binding.getRoot();
         GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(getActivity().getApplication(), 7, 6);
         mViewModel = new ViewModelProvider(this, viewModelFactory).get(GameScreenViewModel.class);
+        settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
         mViewModel.game.revealedWord.observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -84,7 +86,7 @@ public class GameScreenFragment extends Fragment {
                 if(binding.guessInput.getText().toString().length() != 1) {
                     return;
                 }
-                boolean gameOver = mViewModel.game.guess(binding.guessInput.getText().toString().charAt(0));
+                boolean gameOver = mViewModel.game.guess(binding.guessInput.getText().toString().charAt(0), settingsViewModel.difficulty);
                 if(gameOver) {
                     boolean won = mViewModel.game.hasWon();
                     GameScreenFragmentDirections.ActionGameScreenFragmentToResultScreenFragment action = GameScreenFragmentDirections.actionGameScreenFragmentToResultScreenFragment(won, mViewModel.game.word);
