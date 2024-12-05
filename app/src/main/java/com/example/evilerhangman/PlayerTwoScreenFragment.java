@@ -3,6 +3,7 @@ package com.example.evilerhangman;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.example.evilerhangman.databinding.FragmentPlayerTwoScreenBinding;
 
@@ -21,6 +23,15 @@ public class PlayerTwoScreenFragment extends Fragment {
     private FragmentPlayerTwoScreenBinding binding;
 
     private MultiplayerViewModel mViewModel;
+    private int[] imageArray = new int[]{
+        R.drawable.right_leg,
+        R.drawable.left_leg,
+        R.drawable.left_arm,
+        R.drawable.right_arm,
+        R.drawable.torso,
+        R.drawable.head,
+        R.drawable.gallows
+    };
 
     public static PlayerTwoScreenFragment newInstance() {
         return new PlayerTwoScreenFragment();
@@ -32,8 +43,14 @@ public class PlayerTwoScreenFragment extends Fragment {
         binding = FragmentPlayerTwoScreenBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        Character letter = PlayerTwoScreenFragmentArgs.fromBundle(requireArguments()).getLetter().charAt(0);
+        binding.p1guessed.setText(getString(R.string.p1guessed, letter));
+
         MultiplayerViewModelFactory viewModelFactory = new MultiplayerViewModelFactory(getActivity().getApplication(), 7, 6);
         mViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MultiplayerViewModel.class);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mViewModel.game.words);
+        binding.p2wordChanger.setAdapter(adapter);
 
         mViewModel.game.revealedWord.observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -45,16 +62,22 @@ public class PlayerTwoScreenFragment extends Fragment {
         mViewModel.game.livesLeft.observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                if (integer != 6) {
-                    binding.p2gallowsImage.setImageResource(mViewModel.game.imageArray[integer]);
-                }
+                binding.p2gallowsImage.setImageResource(imageArray[integer]);
             }
         });
 
         binding.p2submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_playerTwoScreenFragment_to_playerOneScreenFragment);
+                mViewModel.game.word = binding.p2wordChanger.getSelectedItem().toString();
+                boolean gameOver = mViewModel.game.guess(letter);
+                if(gameOver) {
+                    boolean won = mViewModel.game.hasWon();
+                    PlayerTwoScreenFragmentDirections.ActionPlayerTwoScreenFragmentToResultScreenFragment action = PlayerTwoScreenFragmentDirections.actionPlayerTwoScreenFragmentToResultScreenFragment(won, mViewModel.game.word);
+                    Navigation.findNavController(view).navigate(action);
+                } else {
+                    Navigation.findNavController(view).navigate(R.id.action_playerTwoScreenFragment_to_playerOneScreenFragment);
+                }
             }
         });
 

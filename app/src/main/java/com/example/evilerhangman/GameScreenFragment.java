@@ -5,6 +5,8 @@ This file contains the code for the game screen Fragment and handles the UI logi
 
 package com.example.evilerhangman;
 
+import static com.example.evilerhangman.Mode.GOOD;
+
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -32,6 +34,15 @@ public class GameScreenFragment extends Fragment {
     public static GameScreenFragment newInstance() {
         return new GameScreenFragment();
     }
+    private int[] imageArray = new int[]{
+        R.drawable.right_leg,
+        R.drawable.left_leg,
+        R.drawable.left_arm,
+        R.drawable.right_arm,
+        R.drawable.torso,
+        R.drawable.head,
+        R.drawable.gallows
+    };
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -50,9 +61,7 @@ public class GameScreenFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 binding.remainingAttemptsNumber.setText(integer.toString());
-                if(integer != 6) {
-                    binding.gallowsImage.setImageResource(mViewModel.game.imageArray[integer]);
-                }
+                binding.gallowsImage.setImageResource(imageArray[integer]);
             }
         });
         mViewModel.game.guessedLetters.observe(getViewLifecycleOwner(), new Observer<ArrayList<Character>>() {

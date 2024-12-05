@@ -6,6 +6,7 @@ This file contains the GameScreenViewModel factory, which creates instances of t
 package com.example.evilerhangman;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
@@ -14,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 public class GameScreenViewModelFactory implements ViewModelProvider.Factory {
     private int word_length, lives;
     private Application application;
+    private Mode mode;
+
     /*
     GameScreenViewModelFactory constructor
     Parameters:
@@ -25,6 +28,7 @@ public class GameScreenViewModelFactory implements ViewModelProvider.Factory {
         this.application = application;
         this.word_length = word_length;
         this.lives = lives;
+        this.mode = Mode.EVIL;
     }
     /*
     create
@@ -38,7 +42,8 @@ public class GameScreenViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if(modelClass == GameScreenViewModel.class) {
-            return (T)new GameScreenViewModel(this.application, this.word_length, this.lives);
+            Log.d("HANGMAN", "CREATING NEW GAMESCREENVIEWMODEL");
+            return (T)new GameScreenViewModel(this.application, this.word_length, this.lives, this.mode);
         }
         return null;
     }
