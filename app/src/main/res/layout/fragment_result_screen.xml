@@ -35,49 +35,51 @@
         android:id="@+id/revealedWordLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
         android:text="@string/revealedWordLabel"
         android:textSize="20sp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/resultMessage"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resultMessage" />
 
     <TextView
         android:id="@+id/revealedWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text="@string/defaultWord"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/revealedWordLabel"
-        app:layout_constraintTop_toTopOf="@+id/revealedWordLabel" />
+        app:layout_constraintEnd_toEndOf="@+id/revealedWordLabel"
+        app:layout_constraintStart_toStartOf="@+id/revealedWordLabel"
+        app:layout_constraintTop_toBottomOf="@+id/revealedWordLabel" />
 
     <Button
         android:id="@+id/playAgainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/transparent"
         android:text="@string/play_again"
         android:textColor="@color/black"
         android:textSize="24sp"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@id/revealedWordLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+        app:layout_constraintEnd_toEndOf="@+id/revealedWord"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="@+id/revealedWord"
+        app:layout_constraintTop_toBottomOf="@+id/revealedWord" />
 
     <Button
         android:id="@+id/mainMenuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
         android:text="@string/main_menu"
         android:textColor="@color/black"
         android:textSize="24sp"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@id/playAgainButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintEnd_toEndOf="@+id/playAgainButton"
+        app:layout_constraintStart_toStartOf="@+id/playAgainButton"
+        app:layout_constraintTop_toBottomOf="@id/playAgainButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

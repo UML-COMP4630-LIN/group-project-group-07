@@ -39,6 +39,7 @@
     <string name="hardDifficulty">Hard</string>
     <string name="you_won">You won!</string>
     <string name="you_lost">You lost!</string>
+    <string name="word_length">Word Length</string>
     <string name="button_change_text">Submit Change</string>
     <string-array name="words"></string-array>
     <string name="p1guessed">Player 1 guessed %c</string>
