@@ -74,9 +74,6 @@
         android:label="fragment_player_one_screen"
         tools:layout="@layout/fragment_player_one_screen" >
         <action
-            android:id="@+id/action_playerOneScreenFragment_to_resultScreenFragment"
-            app:destination="@id/resultScreenFragment" />
-        <action
             android:id="@+id/action_playerOneScreenFragment_to_playerTwoScreenFragment"
             app:destination="@id/playerTwoScreenFragment" />
     </fragment>
@@ -88,5 +85,11 @@
         <action
             android:id="@+id/action_playerTwoScreenFragment_to_playerOneScreenFragment"
             app:destination="@id/playerOneScreenFragment" />
+        <argument
+            android:name="letter"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_playerTwoScreenFragment_to_resultScreenFragment"
+            app:destination="@id/resultScreenFragment" />
     </fragment>
 </navigation>

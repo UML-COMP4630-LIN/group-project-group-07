@@ -20,6 +20,15 @@ public class PlayerOneScreenFragment extends Fragment {
     private FragmentPlayerOneScreenBinding binding;
 
     private MultiplayerViewModel mViewModel;
+    private int[] imageArray = new int[]{
+            R.drawable.right_leg,
+            R.drawable.left_leg,
+            R.drawable.left_arm,
+            R.drawable.right_arm,
+            R.drawable.torso,
+            R.drawable.head,
+            R.drawable.gallows
+    };
 
     public static PlayerOneScreenFragment newInstance() {
         return new PlayerOneScreenFragment();
@@ -46,9 +55,7 @@ public class PlayerOneScreenFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 binding.p1remainingAttemptsNumber.setText(integer.toString());
-                if (integer != 6) {
-                    binding.p1gallowsImage.setImageResource(mViewModel.game.imageArray[integer]);
-                }
+                binding.p1gallowsImage.setImageResource(imageArray[integer]);
             }
         });
 
@@ -72,14 +79,10 @@ public class PlayerOneScreenFragment extends Fragment {
                 if(binding.p1guessInput.getText().toString().length() != 1) {
                     return;
                 }
-                boolean gameOver = mViewModel.game.guess(binding.p1guessInput.getText().toString().charAt(0));
-                if(gameOver) {
-                    boolean won = mViewModel.game.hasWon();
-                    PlayerOneScreenFragmentDirections.ActionPlayerOneScreenFragmentToResultScreenFragment action = PlayerOneScreenFragmentDirections.actionPlayerOneScreenFragmentToResultScreenFragment(won, mViewModel.game.word);
-                    Navigation.findNavController(view).navigate(action);
-                } else {
-                    Navigation.findNavController(view).navigate(R.id.action_playerOneScreenFragment_to_playerTwoScreenFragment);
-                }
+                String letter = binding.p1guessInput.getText().toString();
+                PlayerOneScreenFragmentDirections.ActionPlayerOneScreenFragmentToPlayerTwoScreenFragment action = PlayerOneScreenFragmentDirections.actionPlayerOneScreenFragmentToPlayerTwoScreenFragment(letter);
+                Navigation.findNavController(view).navigate(action);
+//                Navigation.findNavController(view).navigate(R.id.action_playerOneScreenFragment_to_playerTwoScreenFragment);
                 binding.p1guessInput.setText("");
             }
         });

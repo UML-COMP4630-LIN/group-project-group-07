@@ -1,3 +1,8 @@
+/*
+ResultScreenFragment.java
+This file contains the code for the result screen Fragment. Arguments from the game screen are received and displayed on screen.
+*/
+
 package com.example.evilerhangman;
 
 import androidx.lifecycle.ViewModelProvider;

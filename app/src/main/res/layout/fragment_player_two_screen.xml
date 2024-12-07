@@ -39,20 +39,34 @@
         android:gravity="center"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/p2wordDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/p1guessed" />
 
     <Button
         android:id="@+id/p2submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:background="@android:color/transparent"
         android:text="@string/button_change_text"
         android:textColor="@color/black"
-        android:background="@android:color/transparent"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/p2wordChanger"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/p2wordChanger" />
+
+    <TextView
+        android:id="@+id/p1guessed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="@string/p1guessed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p2wordDisplay" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
