@@ -45,7 +45,7 @@ public class PlayerOneScreenFragment extends Fragment {
 
         settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
-        MultiplayerViewModelFactory viewModelFactory = new MultiplayerViewModelFactory(getActivity().getApplication(), 7, settingsViewModel.difficulty);
+        MultiplayerViewModelFactory viewModelFactory = new MultiplayerViewModelFactory(getActivity().getApplication(), settingsViewModel.length, settingsViewModel.difficulty);
         mViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MultiplayerViewModel.class);
 
         mViewModel.game.revealedWord.observe(getViewLifecycleOwner(), new Observer<String>() {
