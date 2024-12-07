@@ -42,37 +42,41 @@ public class SettingsFragment extends Fragment {
 
         // Set the correct radio button based on the current mode value
         if (mViewModel.mode == Mode.GOOD) {
+            binding.goodMode.setChecked(true);
+        } else if (mViewModel.mode == Mode.NORMAL) {
             binding.normalMode.setChecked(true);
         } else if (mViewModel.mode == Mode.EVIL) {
             binding.evilMode.setChecked(true);
         }
 
         // Set the correct radio button based on the current difficulty value
-        if (mViewModel.difficulty == 0.5) {
+        if (mViewModel.difficulty == 2.0) {
             binding.easyDifficulty.setChecked(true);
         } else if (mViewModel.difficulty == 1.0) {
             binding.mediumDifficulty.setChecked(true);
-        } else if (mViewModel.difficulty == 2.0) {
+        } else if (mViewModel.difficulty == 0.5) {
             binding.hardDifficulty.setChecked(true);
         }
 
         binding.gameModeGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == binding.normalMode.getId()) {
-                mViewModel.mode = Mode.GOOD;
+                mViewModel.mode = Mode.NORMAL;
             } else if (checkedId == binding.evilMode.getId()) {
                 mViewModel.mode = Mode.EVIL;
+            } else if (checkedId == binding.goodMode.getId()) {
+                mViewModel.mode = Mode.GOOD;
             }
         });
 
         binding.difficultyGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if(checkedId == binding.easyDifficulty.getId()) {
-                mViewModel.difficulty = 0.5;
+                mViewModel.difficulty = 2.0;
             }
             else if(checkedId == binding.mediumDifficulty.getId()) {
                 mViewModel.difficulty = 1.0;
             }
             else if(checkedId == binding.hardDifficulty.getId()) {
-                mViewModel.difficulty = 2.0;
+                mViewModel.difficulty = 0.5;
             }
         });
 

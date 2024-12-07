@@ -48,10 +48,10 @@ public class PlayerTwoScreenFragment extends Fragment {
         Character letter = PlayerTwoScreenFragmentArgs.fromBundle(requireArguments()).getLetter().charAt(0);
         binding.p1guessed.setText(getString(R.string.p1guessed, letter));
 
-        MultiplayerViewModelFactory viewModelFactory = new MultiplayerViewModelFactory(getActivity().getApplication(), 7, 6);
-        mViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MultiplayerViewModel.class);
-
         settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+
+        MultiplayerViewModelFactory viewModelFactory = new MultiplayerViewModelFactory(getActivity().getApplication(), 7, settingsViewModel.difficulty);
+        mViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MultiplayerViewModel.class);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mViewModel.game.words);
         binding.p2wordChanger.setAdapter(adapter);
@@ -66,7 +66,7 @@ public class PlayerTwoScreenFragment extends Fragment {
         mViewModel.game.livesLeft.observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                binding.p2gallowsImage.setImageResource(imageArray[integer]);
+                binding.p2gallowsImage.setImageResource(imageArray[(int)Math.ceil(integer / settingsViewModel.difficulty)]);
             }
         });
 
@@ -74,11 +74,11 @@ public class PlayerTwoScreenFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mViewModel.game.word = binding.p2wordChanger.getSelectedItem().toString();
-                boolean gameOver = mViewModel.game.guess(letter, settingsViewModel.difficulty);
+                boolean gameOver = mViewModel.game.guess(letter);
                 if(gameOver) {
                     boolean won = mViewModel.game.hasWon();
-                    PlayerTwoScreenFragmentDirections.ActionPlayerTwoScreenFragmentToResultScreenFragment action = PlayerTwoScreenFragmentDirections.actionPlayerTwoScreenFragmentToResultScreenFragment(won, mViewModel.game.word);
-                    mViewModel.reset(7, 6);
+                    PlayerTwoScreenFragmentDirections.ActionPlayerTwoScreenFragmentToResultScreenFragment action = PlayerTwoScreenFragmentDirections.actionPlayerTwoScreenFragmentToResultScreenFragment(won, binding.p2wordChanger.getSelectedItem().toString());
+                    mViewModel.reset(7, settingsViewModel.difficulty);
                     Navigation.findNavController(view).navigate(action);
                 } else {
                     Navigation.findNavController(view).navigate(R.id.action_playerTwoScreenFragment_to_playerOneScreenFragment);

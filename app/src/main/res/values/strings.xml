@@ -31,6 +31,7 @@
     <string name="defaultWord">Default</string>
     <string name="settingsTitle">Settings</string>
     <string name="game_mode">Game Mode</string>
+    <string name="good_setting">Good Hangman</string>
     <string name="normal_setting">Normal Hangman</string>
     <string name="evil_setting">Evil Hangman</string>
     <string name="difficultyTitle">Difficulty</string>
