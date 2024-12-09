@@ -1,3 +1,8 @@
+/*
+HelpFragment.java
+This file contains the code for the help screen Fragment.
+*/
+
 package com.example.evilerhangman;
 
 import android.os.Bundle;

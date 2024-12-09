@@ -1,4 +1,11 @@
+/*
+GameScreenFragment.java
+This file contains the code for the game screen Fragment and handles the UI logic relating to it.
+*/
+
 package com.example.evilerhangman;
+
+import static com.example.evilerhangman.Mode.GOOD;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.evilerhangman.databinding.FragmentGameScreenBinding;
 
@@ -27,15 +35,24 @@ public class GameScreenFragment extends Fragment {
     public static GameScreenFragment newInstance() {
         return new GameScreenFragment();
     }
+    private int[] imageArray = new int[]{
+        R.drawable.right_leg,
+        R.drawable.left_leg,
+        R.drawable.left_arm,
+        R.drawable.right_arm,
+        R.drawable.torso,
+        R.drawable.head,
+        R.drawable.gallows
+    };
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentGameScreenBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-        GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(getActivity().getApplication(), 7, 6);
-        mViewModel = new ViewModelProvider(this, viewModelFactory).get(GameScreenViewModel.class);
         settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+        GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(getActivity().getApplication(), 7, 6, settingsViewModel.mode);
+        mViewModel = new ViewModelProvider(this, viewModelFactory).get(GameScreenViewModel.class);
         mViewModel.game.revealedWord.observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -46,9 +63,7 @@ public class GameScreenFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 binding.remainingAttemptsNumber.setText(integer.toString());
-                if(integer != 6) {
-                    binding.gallowsImage.setImageResource(mViewModel.game.imageArray[integer]);
-                }
+                binding.gallowsImage.setImageResource(imageArray[integer]);
             }
         });
         mViewModel.game.guessedLetters.observe(getViewLifecycleOwner(), new Observer<ArrayList<Character>>() {
