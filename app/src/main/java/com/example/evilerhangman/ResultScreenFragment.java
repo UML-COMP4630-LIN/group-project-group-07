@@ -24,7 +24,6 @@ import com.example.evilerhangman.databinding.FragmentResultScreenBinding;
 
 public class ResultScreenFragment extends Fragment {
     private FragmentResultScreenBinding binding;
-    private ResultScreenViewModel mViewModel;
 
     public static ResultScreenFragment newInstance() {
         return new ResultScreenFragment();

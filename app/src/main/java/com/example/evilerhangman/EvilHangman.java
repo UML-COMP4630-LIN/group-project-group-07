@@ -1,9 +1,12 @@
+/*
+EvilHangman.java
+This file contains the EvilHangman class, which contains the state and logic of the Evil Hangman game.
+*/
+
 package com.example.evilerhangman;
 
 import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +25,14 @@ public class EvilHangman {
     public String word;
     Mode mode;
 
+    /*
+    EvilHangman constructor
+    Parameters:
+    - stream: a stream containing all of the possible words to guess.
+    - wordLength: the length of the word to be guessed.
+    - difficulty: a multiplier of the user's number of lives.
+    - mode: EVIL, NORMAL, or GOOD. See Mode.java.
+    */
     public EvilHangman(InputStream stream, int wordLength, double difficulty, Mode mode) throws IOException {
         livesLeft = new MutableLiveData<>((int)(6 * difficulty));
         this.wordLength = wordLength;
@@ -46,6 +57,14 @@ public class EvilHangman {
         }
         this.revealedWord = new MutableLiveData<>(sb.toString());
     }
+    /*
+    guess
+    The method for guessing a letter of the word.
+    Parameters:
+    - letter: the letter to be guessed.
+    Returns:
+    A boolean saying whether or not the game is over (but not whether the user has won or lost).
+    */
     public boolean guess(Character letter) {
         if(guessedLetters.getValue().contains(letter)) { // should be checking for nulls
             return false;
@@ -107,6 +126,14 @@ public class EvilHangman {
         word = words.get(new Random().nextInt(words.size()));
         return livesLeft.getValue() == 0 || revealedWord.getValue().indexOf('_') == -1;
     }
+    /*
+    hasWon
+    Determines whether the user won or lost.
+    Parameters:
+    None.
+    Returns:
+    True if the user won the game, false if they lost, and throws an error if the game isn't over yet.
+    */
     public boolean hasWon() {
         if(livesLeft.getValue() == 0) {
             return false;
