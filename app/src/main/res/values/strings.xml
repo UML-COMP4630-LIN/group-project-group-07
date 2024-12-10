@@ -31,6 +31,7 @@
     <string name="defaultWord">Default</string>
     <string name="settingsTitle">Settings</string>
     <string name="game_mode">Game Mode</string>
+    <string name="good_setting">Good Hangman</string>
     <string name="normal_setting">Normal Hangman</string>
     <string name="evil_setting">Evil Hangman</string>
     <string name="difficultyTitle">Difficulty</string>
@@ -39,6 +40,7 @@
     <string name="hardDifficulty">Hard</string>
     <string name="you_won">You won!</string>
     <string name="you_lost">You lost!</string>
+    <string name="word_length">Word Length</string>
     <string name="button_change_text">Submit Change</string>
     <string-array name="words"></string-array>
     <string name="p1guessed">Player 1 guessed %c</string>

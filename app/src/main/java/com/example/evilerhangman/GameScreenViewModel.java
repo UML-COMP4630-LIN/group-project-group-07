@@ -23,13 +23,14 @@ public class GameScreenViewModel extends AndroidViewModel {
     Parameters:
     - application: The application context. Needed so it can read from a file.
     - wordLength: The length of the word the user will have to guess.
-    - lives: The amount of lives the user will have.
+    - difficulty: A modifier for the amount of lives the user will have.
+    - mode: EVIL, GOOD, or NORMAL. See Mode.java.
     */
-    public GameScreenViewModel(@NonNull Application application, int wordLength, int lives, Mode mode) {
+    public GameScreenViewModel(@NonNull Application application, int wordLength, double difficulty, Mode mode) {
         super(application);
         try {
             InputStream is = getApplication().getAssets().open("words_alpha.txt");
-            game = new EvilHangman(is, wordLength, lives, mode);
+            game = new EvilHangman(is, wordLength, difficulty, mode);
         } catch(IOException e) {
             Log.d("HANGMAN", e.getMessage());
         }

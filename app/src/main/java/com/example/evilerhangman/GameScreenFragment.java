@@ -4,27 +4,17 @@ This file contains the code for the game screen Fragment and handles the UI logi
 */
 
 package com.example.evilerhangman;
-
-import static com.example.evilerhangman.Mode.GOOD;
-
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-
 import com.example.evilerhangman.databinding.FragmentGameScreenBinding;
-
 import java.util.ArrayList;
 
 public class GameScreenFragment extends Fragment {
@@ -51,7 +41,7 @@ public class GameScreenFragment extends Fragment {
         binding = FragmentGameScreenBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
-        GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(getActivity().getApplication(), 7, 6, settingsViewModel.mode);
+        GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(getActivity().getApplication(), settingsViewModel.length, settingsViewModel.difficulty, settingsViewModel.mode);
         mViewModel = new ViewModelProvider(this, viewModelFactory).get(GameScreenViewModel.class);
         mViewModel.game.revealedWord.observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -63,7 +53,7 @@ public class GameScreenFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 binding.remainingAttemptsNumber.setText(integer.toString());
-                binding.gallowsImage.setImageResource(imageArray[integer]);
+                binding.gallowsImage.setImageResource(imageArray[(int)Math.ceil(integer / settingsViewModel.difficulty)]);
             }
         });
         mViewModel.game.guessedLetters.observe(getViewLifecycleOwner(), new Observer<ArrayList<Character>>() {
@@ -86,7 +76,7 @@ public class GameScreenFragment extends Fragment {
                 if(binding.guessInput.getText().toString().length() != 1) {
                     return;
                 }
-                boolean gameOver = mViewModel.game.guess(binding.guessInput.getText().toString().charAt(0), settingsViewModel.difficulty);
+                boolean gameOver = mViewModel.game.guess(binding.guessInput.getText().toString().charAt(0));
                 if(gameOver) {
                     boolean won = mViewModel.game.hasWon();
                     GameScreenFragmentDirections.ActionGameScreenFragmentToResultScreenFragment action = GameScreenFragmentDirections.actionGameScreenFragmentToResultScreenFragment(won, mViewModel.game.word);

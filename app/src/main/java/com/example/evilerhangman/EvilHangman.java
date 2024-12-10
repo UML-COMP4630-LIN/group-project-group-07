@@ -1,9 +1,12 @@
+/*
+EvilHangman.java
+This file contains the EvilHangman class, which contains the state and logic of the Evil Hangman game.
+*/
+
 package com.example.evilerhangman;
 
 import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,15 +19,22 @@ import java.util.Random;
 public class EvilHangman {
     public MutableLiveData<Integer> livesLeft;
     private int wordLength;
-    private double partialLives = 0;
     public MutableLiveData<String> revealedWord;
     public MutableLiveData<ArrayList<Character>> guessedLetters;
     public ArrayList<String> words;
     public String word;
     Mode mode;
 
-    public EvilHangman(InputStream stream, int wordLength, int lives, Mode mode) throws IOException {
-        livesLeft = new MutableLiveData<>(lives);
+    /*
+    EvilHangman constructor
+    Parameters:
+    - stream: a stream containing all of the possible words to guess.
+    - wordLength: the length of the word to be guessed.
+    - difficulty: a multiplier of the user's number of lives.
+    - mode: EVIL, NORMAL, or GOOD. See Mode.java.
+    */
+    public EvilHangman(InputStream stream, int wordLength, double difficulty, Mode mode) throws IOException {
+        livesLeft = new MutableLiveData<>((int)(6 * difficulty));
         this.wordLength = wordLength;
         this.mode = mode;
         guessedLetters = new MutableLiveData<>(new ArrayList<>());
@@ -47,7 +57,15 @@ public class EvilHangman {
         }
         this.revealedWord = new MutableLiveData<>(sb.toString());
     }
-    public boolean guess(Character letter, Double difficulty) {
+    /*
+    guess
+    The method for guessing a letter of the word.
+    Parameters:
+    - letter: the letter to be guessed.
+    Returns:
+    A boolean saying whether or not the game is over (but not whether the user has won or lost).
+    */
+    public boolean guess(Character letter) {
         if(guessedLetters.getValue().contains(letter)) { // should be checking for nulls
             return false;
         }
@@ -85,7 +103,7 @@ public class EvilHangman {
                     }
                     break;
                 case GOOD:
-                    if (entry.getValue().size() < smallestFamilySize) {
+                    if (entry.getValue().size() <= smallestFamilySize) {
                         newFamily = entry.getKey();
                         smallestFamilySize = entry.getValue().size();
                     }
@@ -99,21 +117,23 @@ public class EvilHangman {
         }
         if(newFamily.indexOf(letter) == -1) {
             if(livesLeft != null) {
-                partialLives += difficulty;
-
-                if(partialLives >= 1.0) {
-                    int livesToLose = (int) partialLives;
-                    partialLives -= livesToLose;
-                    livesLeft.setValue(livesLeft.getValue() - livesToLose);
-                }
+                livesLeft.setValue(livesLeft.getValue() - 1);
             }
         }
         revealedWord.setValue(newFamily);
         words = wordFamilies.get(newFamily);
-        Log.d("HANGMAN", "New family: " + newFamily + " (" + biggestFamilySize + ")");
+        Log.d("HANGMAN", "New family: " + newFamily + " (" + words.size() + ")");
         word = words.get(new Random().nextInt(words.size()));
         return livesLeft.getValue() == 0 || revealedWord.getValue().indexOf('_') == -1;
     }
+    /*
+    hasWon
+    Determines whether the user won or lost.
+    Parameters:
+    None.
+    Returns:
+    True if the user won the game, false if they lost, and throws an error if the game isn't over yet.
+    */
     public boolean hasWon() {
         if(livesLeft.getValue() == 0) {
             return false;

@@ -1,23 +1,26 @@
+/*
+PlayerOneScreenFragment.java
+This file contains the fragment seen by player 1 in multiplayer.
+*/
+
 package com.example.evilerhangman;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.evilerhangman.databinding.FragmentPlayerOneScreenBinding;
-
 import java.util.ArrayList;
 
 public class PlayerOneScreenFragment extends Fragment {
 
     private FragmentPlayerOneScreenBinding binding;
+
+    private SettingsViewModel settingsViewModel;
 
     private MultiplayerViewModel mViewModel;
     private int[] imageArray = new int[]{
@@ -41,7 +44,9 @@ public class PlayerOneScreenFragment extends Fragment {
         binding = FragmentPlayerOneScreenBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        MultiplayerViewModelFactory viewModelFactory = new MultiplayerViewModelFactory(getActivity().getApplication(), 7, 6);
+        settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+
+        MultiplayerViewModelFactory viewModelFactory = new MultiplayerViewModelFactory(getActivity().getApplication(), settingsViewModel.length, settingsViewModel.difficulty);
         mViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MultiplayerViewModel.class);
 
         mViewModel.game.revealedWord.observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -55,7 +60,7 @@ public class PlayerOneScreenFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 binding.p1remainingAttemptsNumber.setText(integer.toString());
-                binding.p1gallowsImage.setImageResource(imageArray[integer]);
+                binding.p1gallowsImage.setImageResource(imageArray[(int)Math.ceil(integer / settingsViewModel.difficulty)]);
             }
         });
 
