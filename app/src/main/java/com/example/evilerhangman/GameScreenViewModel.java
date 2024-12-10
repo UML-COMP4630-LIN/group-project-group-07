@@ -24,6 +24,7 @@ public class GameScreenViewModel extends AndroidViewModel {
     - application: The application context. Needed so it can read from a file.
     - wordLength: The length of the word the user will have to guess.
     - difficulty: A modifier for the amount of lives the user will have.
+    - mode: EVIL, GOOD, or NORMAL. See Mode.java.
     */
     public GameScreenViewModel(@NonNull Application application, int wordLength, double difficulty, Mode mode) {
         super(application);
