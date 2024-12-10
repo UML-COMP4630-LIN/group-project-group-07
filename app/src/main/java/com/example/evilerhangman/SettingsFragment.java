@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +90,7 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                int length = Integer.parseInt(charSequence.toString());
+                int length = charSequence.length() == 0 ? 0 : Integer.parseInt(charSequence.toString());
                 if (length >= 1 && length <= 20) {
                     mViewModel.length = length;
                 } else {
