@@ -19,6 +19,8 @@ public class PlayerOneScreenFragment extends Fragment {
 
     private FragmentPlayerOneScreenBinding binding;
 
+    private SettingsViewModel settingsViewModel;
+
     private MultiplayerViewModel mViewModel;
     private int[] imageArray = new int[]{
             R.drawable.right_leg,
@@ -41,7 +43,9 @@ public class PlayerOneScreenFragment extends Fragment {
         binding = FragmentPlayerOneScreenBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        MultiplayerViewModelFactory viewModelFactory = new MultiplayerViewModelFactory(getActivity().getApplication(), 7, 6);
+        settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+
+        MultiplayerViewModelFactory viewModelFactory = new MultiplayerViewModelFactory(getActivity().getApplication(), settingsViewModel.length, settingsViewModel.difficulty);
         mViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MultiplayerViewModel.class);
 
         mViewModel.game.revealedWord.observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -55,7 +59,7 @@ public class PlayerOneScreenFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 binding.p1remainingAttemptsNumber.setText(integer.toString());
-                binding.p1gallowsImage.setImageResource(imageArray[integer]);
+                binding.p1gallowsImage.setImageResource(imageArray[(int)Math.ceil(integer / settingsViewModel.difficulty)]);
             }
         });
 

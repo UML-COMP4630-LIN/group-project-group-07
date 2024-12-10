@@ -51,7 +51,7 @@ public class GameScreenFragment extends Fragment {
         binding = FragmentGameScreenBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
-        GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(getActivity().getApplication(), 7, 6, settingsViewModel.mode);
+        GameScreenViewModelFactory viewModelFactory = new GameScreenViewModelFactory(getActivity().getApplication(), settingsViewModel.length, settingsViewModel.difficulty, settingsViewModel.mode);
         mViewModel = new ViewModelProvider(this, viewModelFactory).get(GameScreenViewModel.class);
         mViewModel.game.revealedWord.observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -63,7 +63,7 @@ public class GameScreenFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 binding.remainingAttemptsNumber.setText(integer.toString());
-                binding.gallowsImage.setImageResource(imageArray[integer]);
+                binding.gallowsImage.setImageResource(imageArray[(int)Math.ceil(integer / settingsViewModel.difficulty)]);
             }
         });
         mViewModel.game.guessedLetters.observe(getViewLifecycleOwner(), new Observer<ArrayList<Character>>() {
@@ -86,7 +86,7 @@ public class GameScreenFragment extends Fragment {
                 if(binding.guessInput.getText().toString().length() != 1) {
                     return;
                 }
-                boolean gameOver = mViewModel.game.guess(binding.guessInput.getText().toString().charAt(0), settingsViewModel.difficulty);
+                boolean gameOver = mViewModel.game.guess(binding.guessInput.getText().toString().charAt(0));
                 if(gameOver) {
                     boolean won = mViewModel.game.hasWon();
                     GameScreenFragmentDirections.ActionGameScreenFragmentToResultScreenFragment action = GameScreenFragmentDirections.actionGameScreenFragmentToResultScreenFragment(won, mViewModel.game.word);

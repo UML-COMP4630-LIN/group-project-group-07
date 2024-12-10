@@ -16,15 +16,14 @@ import java.util.Random;
 public class EvilHangman {
     public MutableLiveData<Integer> livesLeft;
     private int wordLength;
-    private double partialLives = 0;
     public MutableLiveData<String> revealedWord;
     public MutableLiveData<ArrayList<Character>> guessedLetters;
     public ArrayList<String> words;
     public String word;
     Mode mode;
 
-    public EvilHangman(InputStream stream, int wordLength, int lives, Mode mode) throws IOException {
-        livesLeft = new MutableLiveData<>(lives);
+    public EvilHangman(InputStream stream, int wordLength, double difficulty, Mode mode) throws IOException {
+        livesLeft = new MutableLiveData<>((int)(6 * difficulty));
         this.wordLength = wordLength;
         this.mode = mode;
         guessedLetters = new MutableLiveData<>(new ArrayList<>());
@@ -47,7 +46,7 @@ public class EvilHangman {
         }
         this.revealedWord = new MutableLiveData<>(sb.toString());
     }
-    public boolean guess(Character letter, Double difficulty) {
+    public boolean guess(Character letter) {
         if(guessedLetters.getValue().contains(letter)) { // should be checking for nulls
             return false;
         }
@@ -85,7 +84,7 @@ public class EvilHangman {
                     }
                     break;
                 case GOOD:
-                    if (entry.getValue().size() < smallestFamilySize) {
+                    if (entry.getValue().size() <= smallestFamilySize) {
                         newFamily = entry.getKey();
                         smallestFamilySize = entry.getValue().size();
                     }
@@ -99,18 +98,12 @@ public class EvilHangman {
         }
         if(newFamily.indexOf(letter) == -1) {
             if(livesLeft != null) {
-                partialLives += difficulty;
-
-                if(partialLives >= 1.0) {
-                    int livesToLose = (int) partialLives;
-                    partialLives -= livesToLose;
-                    livesLeft.setValue(livesLeft.getValue() - livesToLose);
-                }
+                livesLeft.setValue(livesLeft.getValue() - 1);
             }
         }
         revealedWord.setValue(newFamily);
         words = wordFamilies.get(newFamily);
-        Log.d("HANGMAN", "New family: " + newFamily + " (" + biggestFamilySize + ")");
+        Log.d("HANGMAN", "New family: " + newFamily + " (" + words.size() + ")");
         word = words.get(new Random().nextInt(words.size()));
         return livesLeft.getValue() == 0 || revealedWord.getValue().indexOf('_') == -1;
     }
