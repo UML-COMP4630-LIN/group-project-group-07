@@ -54,6 +54,14 @@ public class PlayerTwoScreenFragment extends Fragment {
         MultiplayerViewModelFactory viewModelFactory = new MultiplayerViewModelFactory(getActivity().getApplication(), settingsViewModel.length, settingsViewModel.difficulty);
         mViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MultiplayerViewModel.class);
 
+
+        if (mViewModel.game.words.size() <= 500) {
+            binding.p2wordInput.setVisibility(View.GONE);
+            binding.p2wordSpinner.setVisibility(View.VISIBLE);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mViewModel.game.words);
+            binding.p2wordSpinner.setAdapter(adapter);
+        }
+
         mViewModel.game.revealedWord.observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -71,7 +79,10 @@ public class PlayerTwoScreenFragment extends Fragment {
         binding.p2submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mViewModel.game.word = binding.p2wordInput.getText().toString();
+                if (mViewModel.game.words.size() <= 500)
+                    mViewModel.game.word = binding.p2wordSpinner.getSelectedItem().toString();
+                else
+                    mViewModel.game.word = binding.p2wordInput.getText().toString();
                 if(mViewModel.game.words.contains(mViewModel.game.word)) {
                     boolean gameOver = mViewModel.game.guess(letter);
                     if (gameOver) {
