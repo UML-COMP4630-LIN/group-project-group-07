@@ -44,4 +44,27 @@
     <string name="button_change_text">Submit Change</string>
     <string-array name="words"></string-array>
     <string name="p1guessed">Player 1 guessed %c</string>
+    <string name="singleplayer_title">Singleplayer</string>
+    <string name="singleplayer_details">Singleplayer is quite straight forward. Make a guess and try to get the word correct.</string>
+    <string name="multiplayer_title">Multiplayer</string>
+    <string name="multiplayer_details">Multiplayer is a bit different. Player 1 makes a guess then passes the phone to player 2. Player 2 then chooses a word to either go with or against player 1. Then they hand the phone back to player 1.</string>
+    <string name="settings_info_details">There are many settings in the game. You can choose the word length or change difficulty and mode.\n\n
+        The modes are as follows: Evil, Good, or Normal.\n\n
+        Normal is the normal Hangman that you play where you make a guess and the word doesn\'t change.\n
+        Good changes the word as you play, choosing from the smallest amount of words it can be, based off of your guess.\n\n
+        Evil changes the word as you play, choosing from the largest amount of words it can be, based off of your guess.\n\n
+        The difficulties are as follows: Easy, Medium, Hard.\n\n
+        Easy gives you twice the lives, Medium gives you the base amount of lives, and Hard gives you half the lives.
+    </string>
+    <string name="aboutgame_details">Eviler Hangman is a game that takes the guessing of Hangman and makes it a whole lot worse. In normal hangman you make a guess and if you are right then the letters get filled in.\n
+        If you get it wrong, then a piece of the stick man is drawn on the gallows. The reason why Eviler Hangman makes this worse is that every guess, whether right or wrong, changes the word on you.\n
+        Making the difficulty of the guessing much harder. Because although you might think it\'s a certain word, no matter what you guess, the word will change. Unless you are able to guess correctly until the very last letter.\n
+    </string>
+    <string name="aboutauthors_details">We are a group of software engineers that have gone through the many classes required to get this far in our curriculum.\n
+        The one thing that stuck with us was this game we made back in our Computing II class called Evil hangman. It was a nightmare to code and make from scratch.\n
+        However we all thought it would be fun to make the game we could only see on a terminal screen into a game we could visually see graphically and interact with properly.\n
+        We also wanted to put our own twist on the game, so we added many settings you could adjust and even added multiplayer to the game.\n
+        This definitely was a fun project that wouldn\'t have been possible without first going through the difficulty of the original game.\n
+    </string>
+
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,92 +7,72 @@
     android:layout_height="match_parent"
     tools:context=".AboutFragment">
 
-    <TextView
-        android:id="@+id/aboutTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/aboutTitle"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/aboutGameTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/about_the_game"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/aboutTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp" />
+        <TextView
+            android:id="@+id/aboutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/aboutTitle"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp" />
 
-    <TextView
-        android:id="@+id/aboutGameDetails"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/lorem_ipsum"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/aboutGameTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp" />
+        <TextView
+            android:id="@+id/aboutGameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_the_game"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/aboutTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp" />
 
-    <TextView
-        android:id="@+id/aboutAuthorsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/about_the_authors"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/aboutGameDetails"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp" />
+        <TextView
+            android:id="@+id/aboutGameDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/aboutgame_details"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/aboutGameTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp" />
 
-    <TextView
-        android:id="@+id/aboutAuthorsDetails"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/lorem_ipsum"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/aboutAuthorsTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp" />
+        <TextView
+            android:id="@+id/aboutAuthorsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_the_authors"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/aboutGameDetails"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp" />
 
-    <TextView
-        android:id="@+id/availableContactsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/available_contacts"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/aboutAuthorsDetails"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp" />
+        <TextView
+            android:id="@+id/aboutAuthorsDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/aboutauthors_details"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/aboutAuthorsTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp" />
 
-    <TextView
-        android:id="@+id/availableContactsDetails"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/lorem_ipsum"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/availableContactsTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
