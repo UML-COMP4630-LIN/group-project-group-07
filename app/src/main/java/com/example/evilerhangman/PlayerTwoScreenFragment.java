@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 import com.example.evilerhangman.databinding.FragmentPlayerTwoScreenBinding;
 
 public class PlayerTwoScreenFragment extends Fragment {
@@ -53,9 +54,6 @@ public class PlayerTwoScreenFragment extends Fragment {
         MultiplayerViewModelFactory viewModelFactory = new MultiplayerViewModelFactory(getActivity().getApplication(), settingsViewModel.length, settingsViewModel.difficulty);
         mViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MultiplayerViewModel.class);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mViewModel.game.words);
-        binding.p2wordChanger.setAdapter(adapter);
-
         mViewModel.game.revealedWord.observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -73,15 +71,19 @@ public class PlayerTwoScreenFragment extends Fragment {
         binding.p2submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mViewModel.game.word = binding.p2wordChanger.getSelectedItem().toString();
-                boolean gameOver = mViewModel.game.guess(letter);
-                if(gameOver) {
-                    boolean won = mViewModel.game.hasWon();
-                    PlayerTwoScreenFragmentDirections.ActionPlayerTwoScreenFragmentToResultScreenFragment action = PlayerTwoScreenFragmentDirections.actionPlayerTwoScreenFragmentToResultScreenFragment(won, binding.p2wordChanger.getSelectedItem().toString());
-                    mViewModel.reset(settingsViewModel.length, settingsViewModel.difficulty);
-                    Navigation.findNavController(view).navigate(action);
+                mViewModel.game.word = binding.p2wordInput.getText().toString();
+                if(mViewModel.game.words.contains(mViewModel.game.word)) {
+                    boolean gameOver = mViewModel.game.guess(letter);
+                    if (gameOver) {
+                        boolean won = mViewModel.game.hasWon();
+                        PlayerTwoScreenFragmentDirections.ActionPlayerTwoScreenFragmentToResultScreenFragment action = PlayerTwoScreenFragmentDirections.actionPlayerTwoScreenFragmentToResultScreenFragment(won, mViewModel.game.word);
+                        mViewModel.reset(settingsViewModel.length, settingsViewModel.difficulty);
+                        Navigation.findNavController(view).navigate(action);
+                    } else {
+                        Navigation.findNavController(view).navigate(R.id.action_playerTwoScreenFragment_to_playerOneScreenFragment);
+                    }
                 } else {
-                    Navigation.findNavController(view).navigate(R.id.action_playerTwoScreenFragment_to_playerOneScreenFragment);
+                    Toast.makeText(requireContext(), "Please enter a valid word!", Toast.LENGTH_LONG).show();
                 }
             }
         });
