@@ -66,5 +66,5 @@
         We also wanted to put our own twist on the game, so we added many settings you could adjust and even added multiplayer to the game.\n
         This definitely was a fun project that wouldn\'t have been possible without first going through the difficulty of the original game.\n
     </string>
-
+    <string name="enter_a_word">Enter a word</string>
 </resources>
