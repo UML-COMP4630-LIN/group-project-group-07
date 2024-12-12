@@ -2,10 +2,10 @@
  Authors: Tristan McDermott, Michael Marchand, Mathew Langlois, and Bardh Tafarshiku
  Date: 12/12/24
  Purpose: To create a Hangman game that changes the word after every guess.
- What Learned: <what have you learned most from doing this assignment>
+ What Learned: We have learned more indepth knowledge of github, how to properly co-operate
+                how to indepth debug, improving user experience, and learning about viewmodel scope.
  Sources of Help: We asked the professor for help in dealing with ViewModels not resetting.
- Time Spent (Hours): <Insert how much time you spent
- on the assignment here>
+ Time Spent (Hours): 40
  ***********************************************/
 
 /*
