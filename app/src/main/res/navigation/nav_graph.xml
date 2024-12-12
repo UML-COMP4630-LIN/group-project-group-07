@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainMenuFragment"
         android:name="com.example.evilerhangman.MainMenuFragment"
-        android:label="fragment_main_menu"
+        android:label="Main Menu"
         tools:layout="@layout/fragment_main_menu" >
         <action
             android:id="@+id/action_mainMenuFragment_to_aboutFragment"
@@ -29,12 +29,12 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.evilerhangman.AboutFragment"
-        android:label="fragment_about"
+        android:label="About Page"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/gameScreenFragment"
         android:name="com.example.evilerhangman.GameScreenFragment"
-        android:label="fragment_game_screen"
+        android:label="Game Screen"
         tools:layout="@layout/fragment_game_screen" >
         <action
             android:id="@+id/action_gameScreenFragment_to_resultScreenFragment"
@@ -43,12 +43,12 @@
     <fragment
         android:id="@+id/helpFragment"
         android:name="com.example.evilerhangman.HelpFragment"
-        android:label="fragment_help"
+        android:label="Help Page"
         tools:layout="@layout/fragment_help" />
     <fragment
         android:id="@+id/resultScreenFragment"
         android:name="com.example.evilerhangman.ResultScreenFragment"
-        android:label="fragment_result_screen"
+        android:label="Result Screen"
         tools:layout="@layout/fragment_result_screen" >
         <action
             android:id="@+id/action_resultScreenFragment_to_gameScreenFragment"
@@ -66,12 +66,12 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.evilerhangman.SettingsFragment"
-        android:label="fragment_settings"
+        android:label="Settings Page"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/playerOneScreenFragment"
         android:name="com.example.evilerhangman.PlayerOneScreenFragment"
-        android:label="fragment_player_one_screen"
+        android:label="Player 1 Screen"
         tools:layout="@layout/fragment_player_one_screen" >
         <action
             android:id="@+id/action_playerOneScreenFragment_to_playerTwoScreenFragment"
@@ -80,7 +80,7 @@
     <fragment
         android:id="@+id/playerTwoScreenFragment"
         android:name="com.example.evilerhangman.PlayerTwoScreenFragment"
-        android:label="fragment_player_two_screen"
+        android:label="Player 2 Screen"
         tools:layout="@layout/fragment_player_two_screen" >
         <action
             android:id="@+id/action_playerTwoScreenFragment_to_playerOneScreenFragment"

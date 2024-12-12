@@ -45,7 +45,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
-import androidx.navigation.NavHost;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(view);
 
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
 
         AppBarConfiguration.Builder builder = new
-                AppBarConfiguration.Builder(navController.getGraph());
+                AppBarConfiguration.Builder(R.id.mainMenuFragment);
         AppBarConfiguration appBarConfiguration = builder.build();
 
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
@@ -82,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        toolbar.setNavigationOnClickListener(v -> {
+            navController.navigate(R.id.mainMenuFragment);
         });
     }
 
@@ -94,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        if(item.getItemId() == android.R.id.home) {
+            navController.navigate(R.id.mainMenuFragment);
+            return true;
+        }
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
     }
 }
