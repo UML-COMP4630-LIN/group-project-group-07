@@ -50,7 +50,7 @@ public class EvilHangman {
         br.close();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < wordLength; i++) {
-            sb.append('_');
+            sb.append('-');
         }
         if(this.mode == Mode.NORMAL) {
             word = words.get(new Random().nextInt(words.size()));
@@ -76,7 +76,7 @@ public class EvilHangman {
         for(String word: words) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < wordLength; i++) {
-                sb.append('_');
+                sb.append('-');
             }
             for (Character guessedLetter : guessedLetters.getValue()) {
                 int index = word.indexOf(guessedLetter);
@@ -124,7 +124,7 @@ public class EvilHangman {
         words = wordFamilies.get(newFamily);
         Log.d("HANGMAN", "New family: " + newFamily + " (" + words.size() + ")");
         word = words.get(new Random().nextInt(words.size()));
-        return livesLeft.getValue() == 0 || revealedWord.getValue().indexOf('_') == -1;
+        return livesLeft.getValue() == 0 || revealedWord.getValue().indexOf('-') == -1;
     }
     /*
     hasWon
@@ -138,7 +138,7 @@ public class EvilHangman {
         if(livesLeft.getValue() == 0) {
             return false;
         }
-        if(revealedWord.getValue().indexOf('_') == -1) {
+        if(revealedWord.getValue().indexOf('-') == -1) {
             return true;
         }
         throw new RuntimeException("Game hasn't finished yet");
