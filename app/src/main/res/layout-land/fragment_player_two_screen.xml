@@ -28,13 +28,27 @@
         app:layout_constraintStart_toStartOf="@+id/p2gallows_image"
         app:layout_constraintTop_toBottomOf="@id/p2gallows_image" />
 
+    <EditText
+        android:id="@+id/p2wordInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/enter_a_word"
+        android:inputType="text"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/p1guessed"
+        app:layout_constraintStart_toStartOf="@+id/p1guessed"
+        app:layout_constraintTop_toBottomOf="@+id/p1guessed" />
+
     <Spinner
-        android:id="@+id/p2wordChanger"
+        android:id="@+id/p2wordSpinner"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:gravity="center"
         android:minHeight="48dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/p1guessed"
         app:layout_constraintStart_toStartOf="@+id/p1guessed"
         app:layout_constraintTop_toBottomOf="@+id/p1guessed" />
@@ -43,15 +57,15 @@
         android:id="@+id/p2submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:background="@android:color/transparent"
         android:text="@string/button_change_text"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/p2wordChanger"
+        app:layout_constraintEnd_toEndOf="@+id/p2wordSpinner"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/p2wordChanger"
-        app:layout_constraintTop_toBottomOf="@id/p2wordChanger" />
+        app:layout_constraintStart_toStartOf="@+id/p2wordSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/p2wordSpinner" />
 
     <TextView
         android:id="@+id/p1guessed"
